@@ -1,0 +1,124 @@
+# I'm defining characters
+define s = Character("Sila")
+define k = Character("Kaito")
+define n = Character("Narrator")
+define naz = Character("Naomi Zamot")
+
+# Start label
+label start:
+naz "Welcome to my Spring 2024 CIS 1051 Final Project. My Name is Naomi Zamot. My project's Title is WHISPER'S OF THE FOREST"
+#they will start at kaitos house
+scene room
+show shappy at left
+show knervous at right
+s "Come on, Kaito! We have to go explore the forest! I heard the whispers yesterday. There's something magical out there!"
+k "I don't know, Sila. The forest is dangerous. What if we get lost? Remember all those stories the village tells!"
+s "Don't worry, Kaito. I've been practicing my navigation skills, we'll stick together. We'll be fine."
+#include forest and sound
+scene forest
+show shappy at left
+show knervous at right
+play sound "forestsound.mp3"  ######
+n "Sila and Kaito venture into the enchanting Forest of Eldoria. The trees sway gently in the breeze. The whispers sound in the distance "
+s "Can you hear them, Kaito? The whispers of the forest?"
+k "Yeah, but... they're kind of creepy"
+s "Oh, don't be such a scaredy-cat, Kaito. Let's keep going!"
+n "Sila and Kaito go deeper in the forest "
+
+    # Puzzle 1
+scene vinedoor
+play sound "darksound.mp3"
+n "As they journey deeper into the forest, they come across a mysterious door covered in vines."
+n "Above the door, they see a riddle inscribed on the stone wall. Help Sila and Kaito solve it."
+show ssurprised at right
+show kconfused at left
+k "I'm not sure as to how to solve this"
+s "Me either, but we have to give it a try"
+n "'I speak without a mouth and hear without ears. I have no body, but I come alive with wind. What am I?'"
+
+    # Player input
+$ answer = renpy.input("What is your answer?")
+jump puzzle1_answer
+
+# Define label for puzzle 1 answer
+label puzzle1_answer:
+    if answer == "echo":
+        s "Correct! The vines on the door wither away, revealing a hidden passage."
+        scene doorpath
+        show knormal
+        show sneutral
+        jump puzzle2
+    else:
+        s "Incorrect! The riddle remains unsolved, and the door remains shut."
+        jump start
+
+# Puzzle 2
+label puzzle2:
+scene doorpath
+play sound "crystalsound.mp3"
+n "They enter the hidden passage and find themselves in a dimly lit room."
+scene crystal
+show shappy at right
+show knervous at left
+s "Wow Kaito! Look at all these beautiful colors. There are so many crystals!"
+n "In the center of the room, they see a pedestal with three colored crystals: red, blue, and green."
+n "There are three corresponding sockets on the wall."
+n "To proceed, you must place the crystals in the correct order."
+k "Do you think we can do this?"
+s "Yes Kaito, I believe in us!"
+n "help them answer the riddle!"
+
+    # Player input
+$ answer = renpy.input("place the red, blue, green crystals in the correct order (ex:red, blue, and green) What is your answer?")
+jump puzzle2_answer
+
+# Define label for puzzle 2 answer
+label puzzle2_answer:
+    if answer == "green, blue, red":
+        n "Well done! The wall slides open, revealing a hidden chamber."
+        scene hiddenchamber
+        show shappy at right
+        show khappy at left
+        jump puzzle3
+    else:
+        n "The crystals glow briefly, but nothing happens. You need to find the correct order."
+        jump start
+
+# Puzzle 3
+label puzzle3:
+scene stone
+show sneutral at left
+show kconfused at right
+play sound "rotating.mp3"
+n "In the hidden chamber, you find a pedestal with a rotating dial and four symbols engraved on the wall."
+s "Kaito look at that dial. There are symbols on it."
+k "I think they want us to figure out the pattern"
+n "Help them figure out the pattern."
+n "To unlock the chamber's secrets, you must align the symbols correctly."
+
+    # Player input
+$ answer = renpy.input("Align the symbols correctly.The symbols are square, circle, triangle, diamond. (hint: # of sides) What is your answer?")
+jump puzzle3_answer
+
+# Define label for puzzle 3 answer
+label puzzle3_answer:
+    if answer == "circle, triangle, square, diamond":
+        s "The dial clicks into place, and the chamber begins to glow with a soft light."
+        scene eldoria
+        show shappy at left
+        show khappy at right
+        play sound "magical.mp3"
+        s "omg we made it! The legends were true. Fairies live here."
+        k "Yes Sila, I can't believe this is where the whispers come from. I think we should go and introduce ourselves. "
+        k " Also, thank you Sila for making me go out of my comfort zone."
+        s "No problem Kaito. I prefer to go on an adventure with my best friend any day. Let's go"
+        jump end_game
+    else:
+        s "The symbols rearrange themselves, and you hear a faint clicking sound. You need to try again."
+        jump start
+
+# End of the game
+label end_game:
+    n "Congratulations! You have successfully solved the puzzles of the forest and uncovered its secrets."
+    n "Thank you for playing 'Whispers of the Forest'!"
+    return
